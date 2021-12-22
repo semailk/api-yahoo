@@ -23,9 +23,10 @@ class PriceService
                         Log::info('Company price updated: ' . $company->name . '.');
                     }
                 } catch (\Exception $exception) {
-                    Log::error('Incorrect company symbol: ' . $company->name . ' assigned to null.');
                     $company->price = null;
                     $company->trading_symbol = null;
+                    $company->save();
+                    Log::error('Incorrect company symbol: ' . $company->name . ' assigned to null.');
                 }
             });
     }
