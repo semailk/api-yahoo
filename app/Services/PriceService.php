@@ -12,9 +12,9 @@ class PriceService
 
     public function __construct(protected string $api_key = '', protected string $url = '', protected string $domain = '')
     {
-        $this->api_key = config('services.yahoo-apiKey.key');
-        $this->url = config('services.yahoo-apiKey.url');
-        $this->domain = config('services.yahoo-apiKey.domain');
+        $this->api_key = config('services.yahoo.key');
+        $this->url = config('services.yahoo.url');
+        $this->domain = config('services.yahoo.domain');
     }
 
     public function updatePriceCompany(Company $company): void
@@ -23,7 +23,7 @@ class PriceService
             if ($company->trading_symbol) {
                 $response = Http::withHeaders([
                     'x-api-key' => $this->api_key
-                ])->get($this->domain . '/' . $this->url , [
+                ])->get("{$this->domain}/{$this->url}" , [
                     'interval' => self::ONE_DAY,
                     'range' => self::ONE_DAY,
                     'symbols' => $company->trading_symbol

@@ -30,7 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'yahoo-apiKey' => [
+    'yahoo' => [
         'key' => env('YAHOO_API_KEY'),
         'domain' => 'https://yfapi.net',
         'url' => 'v8/finance/spark'
