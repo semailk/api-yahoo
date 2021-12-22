@@ -14,7 +14,7 @@ class PriceService
         Company::all()
             ->each(function (Company $company) use ($apiKey) {
                 try {
-                    if (!is_null($company->trading_symbol)) {
+                    if ($company->trading_symbol) {
                         $response = Http::withHeaders([
                             'x-api-key' => $apiKey
                         ])->get('https://yfapi.net/v8/finance/spark?interval=1d&range=1d&symbols=' . $company->trading_symbol);
