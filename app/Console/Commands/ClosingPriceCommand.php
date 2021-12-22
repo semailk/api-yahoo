@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Company;
 use App\Services\PriceService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -22,16 +23,13 @@ class ClosingPriceCommand extends Command
      */
     protected $description = 'Find out the closing price';
 
-    protected $priceService;
-
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(PriceService $priceService)
+    public function __construct(protected PriceService $priceService)
     {
-        $this->priceService = $priceService;
         parent::__construct();
     }
 
@@ -43,10 +41,11 @@ class ClosingPriceCommand extends Command
     public function handle()
     {
         try {
-            $this->priceService->updatePriceCompany();
+            Company::all()->each(function (Company $company){
+                $this->priceService->updatePriceCompany($company);
+            });
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return 1;
         }
         return 0;
     }
