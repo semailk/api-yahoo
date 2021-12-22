@@ -31,6 +31,8 @@ return [
     ],
 
     'yahoo-apiKey' => [
-        'key' => env('YAHOO_API_KEY')
+        'key' => env('YAHOO_API_KEY'),
+        'domain' => 'https://yfapi.net',
+        'url' => 'v8/finance/spark'
     ]
 ];
